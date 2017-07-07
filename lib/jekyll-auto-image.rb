@@ -94,7 +94,13 @@ module Jekyll
         htmled = page.transform # for jekyll 2.x pages
       end
 
-      img_url = htmled.match(/<img.*\ssrc=[\"\']([\S.]+)[\"\']>/i)
+      amazon_url = htmled.match(/<a.*href\s*=[\"|\'](.*amazon.*)[\"|\'].*\/>/i)
+      img_url = if amazon_url == nil
+                  htmled.match(/<img.*src\s*=[\"|\'](.*?)[\"|\'].*\/>/i)
+                else
+                  amazon_url[0].match(/<a.*src\s*=[\"|\'](.*?)[\"|\'].*\/a>/i)
+                end
+
       return img_url[1] if img_url != nil
       return @site.config['image'] if @site.config['image'] != nil
       return nil
