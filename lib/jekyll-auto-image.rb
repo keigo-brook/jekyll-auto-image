@@ -94,8 +94,8 @@ module Jekyll
         htmled = page.transform # for jekyll 2.x pages
       end
 
-      img_url = htmled.match(/<img.*\ssrc=[\"\']([\S.]+)[\"\']/i)
-      return img_url[0] if img_url != nil
+      img_url = htmled.match(/<img.*\ssrc=[\"\']([\S.]+)[\"\']>/i)
+      return img_url[1] if img_url != nil
       return @site.config['image'] if @site.config['image'] != nil
       return nil
     end
