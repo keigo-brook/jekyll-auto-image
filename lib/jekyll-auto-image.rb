@@ -95,7 +95,7 @@ module Jekyll
       end
 
       img_url = htmled.match(/<img.*\ssrc=[\"\']([\S.]+)[\"\']/i)
-      return img_url[1] if img_url != nil
+      return img_url[0] if img_url != nil
       return @site.config['image'] if @site.config['image'] != nil
       return nil
     end
